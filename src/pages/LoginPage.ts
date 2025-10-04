@@ -27,20 +27,10 @@ export class LoginPage {
     await this.usernameField.fill(username);
     await this.passwordField.fill(password);
     
-    // Wait a moment for any form validation to complete
-    await this.page.waitForTimeout(500);
-    
     // Ensure the button is visible and enabled before clicking
     await this.loginButton.waitFor({ state: 'visible' });
     await this.loginButton.waitFor({ state: 'attached' });
-    
-    // Try to click the button, with fallback to force click if needed
-    try {
-      await this.loginButton.click({ timeout: 10000 });
-    } catch (error) {
-      // If normal click fails, try force click
-      await this.loginButton.click({ force: true });
-    }
+    await this.loginButton.click();
   }
 
   async getErrorMessage(): Promise<string | null> {
